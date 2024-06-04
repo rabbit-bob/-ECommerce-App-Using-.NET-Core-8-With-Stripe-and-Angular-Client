@@ -11,7 +11,14 @@
 
       <h6 class="text-danger fw-bold my-3">Category</h6>
       <ul class="list-group">
-        <li class="list-group-item" aria-current="true" *ngFor="let item of category">{{item.name}}</li>
+        <li class="list-group-item" aria-current="true"
+          *ngFor="let item of category"
+          [class.active]="item.id === categoryIdSelected"
+          [value]="item.id"
+          (click)="OnCategorySelect(item.id)"
+          >
+          {{item.name}}
+        </li>
 
       </ul>
     </section>

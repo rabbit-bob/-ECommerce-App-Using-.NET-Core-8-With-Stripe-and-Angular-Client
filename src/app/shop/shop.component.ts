@@ -12,6 +12,8 @@ export class ShopComponent implements OnInit {
 
   products: IProduct[];
   category: ICategory[];
+
+  categoryIdSelected: number = 0;
   constructor(private shopService: ShopService) { }
 
     ngOnInit(): void {
@@ -20,7 +22,7 @@ export class ShopComponent implements OnInit {
     }
 
   getProducts() {
-    this.shopService.getProduct().subscribe(
+    this.shopService.getProduct(this.categoryIdSelected).subscribe(
       response => {
         this.products = response.data;
       }
@@ -30,8 +32,13 @@ export class ShopComponent implements OnInit {
   getCategories() {
     this.shopService.getCategory().subscribe(
       response => {
-        this.category = response;
+        this.category = [{id: 0, name: 'All', description: ''}, ...response];
       }
     )
+  }
+
+  OnCategorySelect(categoryId: number) {
+    this.categoryIdSelected = categoryId;
+    this.getProducts();
   }
 }
