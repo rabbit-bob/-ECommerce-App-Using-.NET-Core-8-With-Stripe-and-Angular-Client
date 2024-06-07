@@ -14,6 +14,12 @@ export class ShopComponent implements OnInit {
   category: ICategory[];
 
   categoryIdSelected: number = 0;
+  sortSelect: string = 'Name';
+  sortOptions = [
+    { name: 'Name', value: 'Name' },
+    { name: 'Price: Min-Max', value: 'PriceAsc' },
+    { name: 'Price: Max-Min', value: 'PriceDesc' }
+  ]
   constructor(private shopService: ShopService) { }
 
     ngOnInit(): void {
@@ -22,7 +28,7 @@ export class ShopComponent implements OnInit {
     }
 
   getProducts() {
-    this.shopService.getProduct(this.categoryIdSelected).subscribe(
+    this.shopService.getProduct(this.categoryIdSelected, this.sortSelect).subscribe(
       response => {
         this.products = response.data;
       }
@@ -37,8 +43,14 @@ export class ShopComponent implements OnInit {
     )
   }
 
-  OnCategorySelect(categoryId: number) {
+  onCategorySelect(categoryId: number) {
     this.categoryIdSelected = categoryId;
+    this.getProducts();
+  }
+
+  onSortSelect(sort: Event) {
+    let sortValue = (sort.target as HTMLInputElement).value;
+    this.sortSelect = sortValue;
     this.getProducts();
   }
 }
