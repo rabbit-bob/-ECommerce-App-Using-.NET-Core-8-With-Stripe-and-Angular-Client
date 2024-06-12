@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IProduct } from '../shared/Models/Product';
+import { IProduct } from '../shared/Models/IProduct';
 import { ShopService } from './shop.service';
-import { ICategory } from '../shared/Models/Category';
+import { ICategory } from '../shared/Models/ICategory';
 
 @Component({
   selector: 'app-shop',

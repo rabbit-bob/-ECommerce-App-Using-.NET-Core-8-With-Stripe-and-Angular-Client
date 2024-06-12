@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IPagination } from '../shared/Models/Pagination';
-import { ICategory } from '../shared/Models/Category';
+import { IPagination } from '../shared/Models/IPagination';
+import { ICategory } from '../shared/Models/ICategory';
 import { map } from 'rxjs';
 
 @Injectable({
