@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IProduct } from '../shared/Models/IProduct';
 import { ShopService } from './shop.service';
 import { ICategory } from '../shared/Models/ICategory';
+import { ShopParams } from '../shared/Models/ShopParams';
 
 @Component({
   selector: 'app-shop',
@@ -12,14 +13,14 @@ export class ShopComponent implements OnInit {
 
   products: IProduct[];
   category: ICategory[];
-
-  categoryIdSelected: number = 0;
-  sortSelect: string = 'Name';
+  shopParams = new ShopParams();
+  totalCount: number;
   sortOptions = [
     { name: 'Name', value: 'Name' },
     { name: 'Price: Min-Max', value: 'PriceAsc' },
     { name: 'Price: Max-Min', value: 'PriceDesc' }
   ]
+
   constructor(private shopService: ShopService) { }
 
     ngOnInit(): void {
@@ -28,9 +29,12 @@ export class ShopComponent implements OnInit {
     }
 
   getProducts() {
-    this.shopService.getProduct(this.categoryIdSelected, this.sortSelect).subscribe(
+    this.shopService.getProduct(this.shopParams).subscribe(
       response => {
         this.products = response.data;
+        this.totalCount = response.count;
+        this.shopParams.pageNumber = response.pageNumber;
+        this.shopParams.pageSize = response.pageSize;
       }
     )
   }
@@ -44,13 +48,13 @@ export class ShopComponent implements OnInit {
   }
 
   onCategorySelect(categoryId: number) {
-    this.categoryIdSelected = categoryId;
+    this.shopParams.categoryId = categoryId;
     this.getProducts();
   }
 
   onSortSelect(sort: Event) {
     let sortValue = (sort.target as HTMLInputElement).value;
-    this.sortSelect = sortValue;
+    this.shopParams.sort = sortValue;
     this.getProducts();
   }
 }
