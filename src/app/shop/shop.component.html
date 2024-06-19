@@ -37,8 +37,16 @@
         </div>
       </div>
       <div class="d-flex justify-content-center mt-3">
-        <pagination [boundaryLinks]="true" [totalItems]="totalCount"
-              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+        <pagination
+          (pageChanged)="onPageChanged($event.page)"
+          [itemsPerPage]="shopParams.pageSize"
+          [boundaryLinks]="true"
+          [totalItems]="totalCount"
+          previousText="&lsaquo;"
+          nextText="&rsaquo;"
+          firstText="&laquo;"
+          lastText="&raquo;"
+        >
         </pagination>
       </div>
     </section>
