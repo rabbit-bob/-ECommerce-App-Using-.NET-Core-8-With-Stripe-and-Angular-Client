@@ -29,9 +29,9 @@
           [pageSize]="shopParams.pageSize"
          ></app-paging-header>
         <div class="input-group mt-2">
-          <input class="form-control mr-2" type="text" placeholder="Search Here...">
-          <button class="btn btn-outline-success">Search</button>
-          <button class="btn btn-outline-warning">Reset</button>
+          <input (keyup.enter)="onSearch()" class="form-control mr-2" type="text" #search placeholder="Search Here...">
+          <button class="btn btn-outline-success" (click)="onSearch()">Search</button>
+          <button class="btn btn-outline-warning" (click)="onReset()">Reset</button>
         </div>
       </div>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
